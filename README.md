@@ -101,3 +101,28 @@ Type or Copy-Paste this Query to the input field on the Neo4j Web Interface and 
 
 ## 6. READ Operation
 
+Now that we have learnt to perform the CREATE operation in Neo4j, it's time to READ data from our Graph!
+
+To construct the Read Query using Cypher, we need to use the `MATCH` keyword (as seen above). 
+
+As previously described, the query `MATCH (p:Person {name:"Thomas"}) RETURN (p)` will return: 
+```
+╒══════════════╕
+│p             │
+╞══════════════╡
+│{name: Thomas}│
+└──────────────┘
+```
+Here, it is crucial to understand that `RETURN (p)` implies that we want __ALL__ information about our Node __p__. Since we only have __1__ Property (name), we see that as the Output. However, we can be specific: 
+
+To ONLY return the __name__: 
+`MATCH (p:Person {name:"Thomas"}) RETURN (p.name)`
+
+Let's do something a bit more cooler! How about we _find_ what kind of relationship __Thomas__ has with __rock music__?
+
+`MATCH (p:Person {name:"Thomas"})-[r]->(m:Music {genre:"Rock"}) RETURN type(r)`
+
+Here, we specified only `[r]` because we want to _find_ the label of the relationship. We use the `type()` function to achieve this!
+
+## 7. UPDATE Operation
+
