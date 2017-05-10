@@ -1,7 +1,7 @@
 # Getting Started with Neo4j
 
 + Author: Arjun Rajeev Nedungadi (@arjuntherajeev)
-+ Field: Graph Databases 
++ Field: Graph Databases
 + Topic: Installing & Performing CRUD (Create-Read-Update-Delete) operations on Neo4j - a Graph Database 
 
 ## Why are we doing this?
@@ -122,7 +122,75 @@ Let's do something a bit more cooler! How about we _find_ what kind of relations
 
 `MATCH (p:Person {name:"Thomas"})-[r]->(m:Music {genre:"Rock"}) RETURN type(r)`
 
-Here, we specified only `[r]` because we want to _find_ the label of the relationship. We use the `type()` function to achieve this!
+Here, we specified only `[r]` because we want to _find_ the label of the relationship. We use the `type()` function to achieve this! It will return:
+
+```
+╒═══════╕
+│type(r)│
+╞═══════╡
+│likes  │
+└───────┘
+```
 
 ## 7. UPDATE Operation
 
+Great! The question always arises - What if we need to _edit_/_modify_ something? What if __Thomas__ decides to like __Pop__ music instead?
+
+To construct the Update Query using Cypher, we need to use the `SET` keyword. The `SET` keyword is typically used in conjunction with the `MATCH` keyword. Let's take an example! 
+For the above modification (Editing __Rock__ to __Pop__ music), the Query will look like: 
+
+`MATCH (p:Person {name:"Thomas"})-[r:likes]->(m:Music {genre:"Rock"}) SET m.genre="Pop" RETURN m`
+
+Now, __Thomas__ _likes_ __Pop__ music! 
+
+It is interesting to know that the `SET` keyword can also be used to add new properties to the node. For example:
+
+`MATCH (p:Person {name:"Thomas"})-[r:likes]->(m:Music {genre:"Pop"}) SET p.age="20" RETURN p`
+
+As we can see, `age` is the new Property that we want to add to the `Person` node. Using the `SET` keyword, we are assigning a value of `20` to it. The output will be: 
+
+```
+╒═══════════════════════╕
+│p                      │
+╞═══════════════════════╡
+│{name: Thomas, age: 20}│
+└───────────────────────┘
+```
+
+## 8. DELETE Operation
+
+We've reached pretty far! Good job! The Delete operation requires the use of the `DELETE` keyword. The `DELETE` keyword is often used in conjunction with the `MATCH` keyword.
+
+Let's try to delete the `Music` node from our database. To do this, the Query will look like: 
+
+`MATCH (m:Music) DELETE m` - However, This will **NOT** work! The reason is that there are still Relationships and **those** need to be deleted first!
+
+1. To delete Relationships:
+   * The first step is to use the `DELETE` keyword and delete the Relationships. In our example, we only have **1** relationship - _likes_. To delete this, we will use the Query: 
+   `MATCH (p:Person)-[r:likes]-(m:Music) DELETE r`. 
+
+2. To delete Nodes:
+   * Now that we have deleted the Relationship, we can simply delete the `Music` Node using the Query:
+   `MATCH (m:Music) DELETE m`.
+
+Now, there should only be **1** `Person` Node in the database!
+
+## It's been a long journey...
+
+There you have it! That's Neo4j in a nutshell. I genuinely hope that this lesson has inspired you to use Neo4j as your database for your next project! The developer community is just brilliant and there are lots of resources available online for Cypher and Neo4j.
+
+For anyone with experience with SQL, what do you think of Neo4j? Is not having to worry about `Foreign Keys` and whatnots fun? I shall leave you think about it!
+
+## Summary 
+
+In this lesson, we got acquainted with Neo4j - a Graph Database. We completed the installation and Set-Up stages of Neo4j and progressed to understanding Graph Databases and Cypher (the Query language of Neo4j).
+Further, we learnt to perform the basic CRUD (Create-Read-Update-Delete) operations on our data in the database.
+
+## References
+
++ [Cypher Query Language](https://neo4j.com/developer/cypher-query-language/)
++ [Neo4j Documentation](https://neo4j.com/docs/)
+
+## What's Next?
+
+If you enjoyed this lesson and want to take it to the next level, I would strongly advice trying to access Neo4j using a programming language of your choice. Neo4j can be accessed by languages such as __Python__, __Java__, __JavaScript__, etc. using _Drivers_. You can read more about this [here](https://neo4j.com/docs/developer-manual/current/drivers/get-started/)!
