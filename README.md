@@ -193,4 +193,4 @@ Further, we learnt to perform the basic CRUD (Create-Read-Update-Delete) operati
 
 ## What's Next?
 
-If you enjoyed this lesson and want to take it to the next level, I would strongly advice trying to access Neo4j using a programming language of your choice. Neo4j can be accessed by languages such as __Python__, __Java__, __JavaScript__, etc. using _Drivers_. You can read more about this [here](https://neo4j.com/docs/developer-manual/current/drivers/get-started/)!
+If you enjoyed this lesson and want to take it to the next level, I would strongly advice trying to access Neo4j using a programming language of your choice. Neo4j can be accessed by languages such as __Python__, __Java__, __JavaScript__, etc. using _Drivers_. You can read more about this [here](https://neo4j.com/developer/language-guides/)!
